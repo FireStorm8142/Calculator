@@ -91,3 +91,7 @@ body{
 .triple{
     flex-basis: 73%;
 }
+.button.op.active {
+  background:#ff6a00;
+  color: #fff;
+}

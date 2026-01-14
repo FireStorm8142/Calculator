@@ -1,6 +1,7 @@
 let runnningTotal = 0;
 let buffer = "0";
 let previousOp = null;
+let activeop=null;
 const screen = document.querySelector('.screen');
 
 function buttonClick(value){
@@ -26,6 +27,12 @@ function handleSymbol(symbol){
             previousOp = null;
             buffer = runnningTotal;
             runnningTotal=0;
+
+            //function to clear op highlight
+            if (activeop){
+                activeop.classList.remove('active');
+                activeop=null;
+            }
             break;
         case '←':
             if(buffer.length===1){
@@ -58,6 +65,13 @@ function handleMath(symbol){
     }
     previousOp=symbol;
     buffer='0';
+
+    //function for highlighting operator
+    if(activeop){
+        activeop.classList.remove('active');
+    }
+    activeop= [...document.querySelectorAll('.button.op')].find(btn=>btn.innerText===symbol);
+    activeop.classList.add('active');
 }
 function flushOperation(intBuffer){
     if(previousOp === '+'){
@@ -83,7 +97,7 @@ function handleNumber(numberString){
 }
 
 function init() {
-    document.querySelectorAll('button').forEach(button => {
+    document.querySelectorAll('.button').forEach(button => {
         button.addEventListener('click', event => {
             buttonClick(event.target.innerText);
         });
