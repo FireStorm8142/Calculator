@@ -13,6 +13,8 @@ function buttonClick(value){
     }
     screen.innerText = buffer;
 }
+
+//function to handle +, -, * etc..
 function handleSymbol(symbol){
     switch(symbol){
         case 'C':
@@ -21,9 +23,9 @@ function handleSymbol(symbol){
             break;
         case '=':
             if(previousOp === null){
-                return
+                return;
             }
-            flushOperation(parseInt(buffer));
+            flushOperation(parseFloat(buffer));
             previousOp = null;
             buffer = runnningTotal;
             runnningTotal=0;
@@ -42,6 +44,11 @@ function handleSymbol(symbol){
                 buffer = buffer.substring(0, buffer.length - 1);
             }
             break;
+        case '.':
+            if(buffer.length === 0) return;
+            if(buffer.includes('.')) return;
+            buffer += '.';
+            break;
         case '÷':
         case '+':
         case '−':
@@ -55,13 +62,13 @@ function handleMath(symbol){
     if (buffer ==='0'){
         return;
     }
-    const intBuffer = parseInt(buffer);
+    const floatBuffer = parseFloat(buffer);
 
     if (runnningTotal === 0){
-        runnningTotal = intBuffer;
+        runnningTotal = floatBuffer;
     }
     else{
-        flushOperation(intBuffer);
+        flushOperation(floatBuffer);
     }
     previousOp=symbol;
     buffer='0';
@@ -73,18 +80,18 @@ function handleMath(symbol){
     activeop= [...document.querySelectorAll('.button.op')].find(btn=>btn.innerText===symbol);
     activeop.classList.add('active');
 }
-function flushOperation(intBuffer){
+function flushOperation(floatBuffer){
     if(previousOp === '+'){
-        runnningTotal += intBuffer;
+        runnningTotal += floatBuffer;
     }
     else if(previousOp === '−'){
-        runnningTotal -= intBuffer;
+        runnningTotal -= floatBuffer;
     }
     else if(previousOp === '×'){
-        runnningTotal *= intBuffer;
+        runnningTotal *= floatBuffer;
     }
     else if(previousOp === '÷'){
-        runnningTotal /= intBuffer;
+        runnningTotal /= floatBuffer;
     }
 }
 function handleNumber(numberString){

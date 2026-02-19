@@ -89,7 +89,10 @@ body{
     flex-basis: 47%;
 }
 .triple{
-    flex-basis: 73%;
+    flex-basis: 47%;
+}
+.float{
+    font-size: 32px;
 }
 .button.op.active {
   background:#ff6a00;
