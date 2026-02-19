@@ -12,9 +12,10 @@ function buttonClick(value){
     }
     else{
         if (screenClear) buffer="0"
-        screenClear =  false;
+        screenClear = false;
         handleNumber(value);
     }
+    buffer = buffer.toString().slice(0, 15);
     screen.innerText = buffer;
 }
 
@@ -66,7 +67,7 @@ function handleSymbol(symbol){
 
 //function to handle intermediate symbols operation
 function handleMath(symbol){
-    if (buffer ==='0'){
+    if (buffer ==='0' || previousOp===symbol){
         return;
     }
     const floatBuffer = parseFloat(buffer);
