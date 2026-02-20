@@ -15,6 +15,7 @@ function buttonClick(value){
         screenClear = false;
         handleNumber(value);
     }
+    //handling display overflow
     buffer = buffer.toString().slice(0, 15);
     screen.innerText = buffer;
 }
@@ -25,6 +26,12 @@ function handleSymbol(symbol){
         case 'C':
             buffer ='0'
             runnningTotal=0;
+            screenClear = false;
+            previousOp = null
+             if (activeop) {
+                activeop.classList.remove('active');
+                activeop = null;
+            }
             break;
         case '=':
             if(previousOp === null){
@@ -84,7 +91,7 @@ function handleMath(symbol){
     if(activeop){
         activeop.classList.remove('active');
     }
-    activeop= [...document.querySelectorAll('.button.op')].find(btn=>btn.innerText===symbol);
+    activeop = [...document.querySelectorAll('.button.op')].find(btn=>btn.innerText===symbol);
     activeop.classList.add('active');
 }
 
