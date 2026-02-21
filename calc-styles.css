@@ -84,9 +84,18 @@ body{
 }
 .back{
     font-size: 32px;
+    background-color: #14213D;
+    color: whitesmoke;
+    padding-bottom: 1%;
 }
 .double{
-    flex-basis: 47%;
+    color: white;
+    background-color: #85182A;
+    flex-basis: 20%;
+}
+
+.double:hover{
+    background-color: #6E1423;
 }
 .triple{
     flex-basis: 47%;

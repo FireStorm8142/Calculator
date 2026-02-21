@@ -1,5 +1,6 @@
 let runnningTotal = 0;
 let buffer = "0";
+let clicked = false;
 let previousOp = null;
 let activeop = null;
 let screenClear = false;
@@ -28,9 +29,18 @@ function handleSymbol(symbol){
             runnningTotal=0;
             screenClear = false;
             previousOp = null
+            clicked=false;
              if (activeop) {
                 activeop.classList.remove('active');
                 activeop = null;
+            }
+            break;
+        case 'CE':
+            previousOp=null;
+            clicked=false;
+             if (activeop){
+                activeop.classList.remove('active');
+                activeop=null;
             }
             break;
         case '=':
@@ -41,6 +51,7 @@ function handleSymbol(symbol){
             previousOp = null;
             buffer = runnningTotal;
             runnningTotal=0;
+            clicked=false;
 
             //function to clear op highlight
             if (activeop){
@@ -74,7 +85,7 @@ function handleSymbol(symbol){
 
 //function to handle intermediate symbols operation
 function handleMath(symbol){
-    if (buffer ==='0' || previousOp===symbol){
+    if (buffer ==='0' || previousOp===symbol || clicked){
         return;
     }
     const floatBuffer = parseFloat(buffer);
@@ -86,6 +97,7 @@ function handleMath(symbol){
         flushOperation(floatBuffer);
     }
     previousOp=symbol;
+    clicked=true;
 
     //function for highlighting operator
     if(activeop){
